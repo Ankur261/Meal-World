@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+}
+
+header {
+    background-color: aqua;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2vh;
+    padding-left: 2vw;
+}
+
+#nav-bar {
+    height: 3vh;
+    width: 3vw;
+    margin: 15px;
+}
+
+#search-section {
+     height: auto;
+    padding-left: auto;
+    display: flex ;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-bottom: 2vw;
+    margin-left: 13vw;
+}
+
+#search-input {
+    width: 60vw;
+    height: 10vh;
+    padding-left: 10px;
+    border-radius: 10px;
+    border: 2px solid blue;
+}
+
+#search-button {
+    max-width: 35px;
+    max-height: 35px;
+    height: 9vh ;
+    width: 9vh;
+    padding-left: 1vw;
+    padding-top: 1vh;
+    object-fit: contain;
+}
+
+/* #search ::after{
+    content: url(./assets/magnifying-glass-solid.svg);
+    height: 100px;
+    width: 100px;
+} */
+
+#result-section {
+    border: 2px solid black;
+    height: 50vh ;
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
