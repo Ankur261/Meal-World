@@ -53,8 +53,153 @@ header {
 
 #result-section {
     border: 2px solid black;
-    height: 50vh ;
+    height: auto ;
     width: auto;
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+
+.card {
+
+    margin: 5px;
+    height: 350px;
+    min-width: 220px;
+    max-width: 220px;
+    display: flex;
+    flex-direction: column;
+    background-color: hsl(234, 39%, 85%);
+    align-items: center;
+    border-radius: 20px;
+    justify-content: flex-start;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+}
+
+
+.card-top {
+    display: flex;
+    flex-direction: column;
+    flex: .85;
+    border-radius: 20%;
+}
+
+.dish-photo {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
+
+}
+
+.dish-photo img {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    height: 180px;
+
+
+    width: 100%;
+    object-fit: cover;
+
+    /* border: solid 1px red; */
+
+
+}
+
+.dish-name {
+    margin-top: 5px;
+    width: 100%;
+    margin-left: 10px;
+    color: hsl(234, 54%, 30%);
+    font-size: 1.3rem;
+    font-weight: bolder;
+
+}
+
+.dish-details {
+    color: hsl(234, 54%, 30%);
+    margin-top: 5px;
+    margin-left: 10px;
+    width: 95%;
+    height: 50px;
+
+
+}
+
+.card-bottom {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    flex: .15;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+
+    opacity: 1;
+
+
+
+}
+
+.card:hover {
+    transform: scale(1.1);
+    transition: all ease-in-out .45s;
+    cursor: pointer;
+}
+
+.card:hover .card-bottom {
+    transition: all .25s;
+    opacity: 1;
+}
+
+/* 
+
+.card:hover img {
+    transform: scale(1.1);
+    transition: ease-in-out all .25s;
+} */
+
+.like {
+    flex: .5;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+}
+
+.play {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.fa-heart {
+
+    scale: 1.6;
+    color: gray;
+
+
+}
+
+.fa-heart.active {
+    color: rgb(158, 45, 45);
+}
+
+.fa-youtube {
+
+    color: rgb(151, 29, 29);
+    scale: 1.6;
+
+}
+
+.fa-heart:hover,
+.fa-youtube:hover {
+    scale: 1.9;
+    transition: ease-in-out all .25s;
 }
