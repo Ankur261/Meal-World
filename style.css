@@ -98,11 +98,12 @@ header {
 
 .dish-details {
     color: rgb(255, 187, 145);
-    width: 100%;
-    height: auto;
-    margin-bottom: 5px;
-    margin-left: 10px;
-
+    width: 210px;
+    height: 90px;
+    margin: 5px;
+    display: grid;
+    align-items: center;
+    text-overflow: ellipsis;
 }
 
 .card-bottom {
