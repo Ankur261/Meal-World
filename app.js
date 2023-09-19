@@ -11,7 +11,23 @@ var searchInput = document.getElementById('search-input') ;
  * for each meal. This HTML template is then added to the DOM.
  */
 
-async function MealList(searchKeyword) {
+const dbObjectFavList = "favouritesList";
+ if (localStorage.getItem(dbObjectFavList) == null) {
+    localStorage.setItem(dbObjectFavList, JSON.stringify([]));
+}
+
+function isFav(list, id) {
+    let res = false;
+    for (let i = 0; i < list.length; i++) {
+        if (id == list[i]) {
+            res = true;
+        }
+    }
+    return res;
+}
+ 
+
+var  MealList = async function(searchKeyword) {
     const searchMelaUrl = "https://www.themealdb.com/api/json/v1/1/search.php?s=" ;
     const response = await fetch(`${searchMelaUrl}${searchKeyword}`).then(response => response.json()).catch(error => console.error("Error: ", error));
     let html = '';
@@ -19,7 +35,7 @@ async function MealList(searchKeyword) {
     if (response.meals) {
         html = response.meals.map(element => {
             return `
-            <div class="card" onClick = "${mealDetailPage(element)}">
+            <div class="card" onClick="${mealDetailPage(element)}">
             <div class="card-top" >
                 <div class="dish-photo" >
                     <img src="${element.strMealThumb}" alt="">
@@ -57,7 +73,7 @@ async function MealList(searchKeyword) {
 async function mealDetailPage(mealDetails) {
     const list = JSON.parse(localStorage.getItem(dbObjectFavList));
     let html = ''
-    if (mealDetails != null) {
+        window.location.assign ="http://127.0.0.1:5500/meal-detail-page.html" ;
         html = `
         <div class="container remove-top-margin">
 
@@ -79,42 +95,40 @@ async function mealDetailPage(mealDetails) {
         </div>
         <div class="item-details">
         <div class="item-details-left">
-        <img src="  ${mealDetails.meals[0].strMealThumb}" alt="">
+        <img src="  ${mealDetails.strMealThumb}" alt="">
     </div>
     <div class="item-details-right">
         <div class="item-name">
             <strong>Name: </strong>
             <span class="item-text">
-            ${mealDetails.meals[0].strMeal}
+            ${mealDetails.strMeal}
             </span>
          </div>
         <div class="item-category">
             <strong>Category: </strong>
             <span class="item-text">
-            ${mealDetails.meals[0].strCategory}
+            ${mealDetails.strCategory}
             </span>
         </div>
         <div class="item-ingrident">
             <strong>Ingrident: </strong>
             <span class="item-text">
-            ${mealDetails.meals[0].strIngredient1},${mealDetails.meals[0].strIngredient2},
-            ${mealDetails.meals[0].strIngredient3},${mealDetails.meals[0].strIngredient4}
+            ${mealDetails.strIngredient1},${mealDetails.strIngredient2},
+            ${mealDetails.strIngredient3},${mealDetails.strIngredient4}
             </span>
         </div>
         <div class="item-instruction">
             <strong>Instructions: </strong>
             <span class="item-text">
-            ${mealDetails.meals[0].strInstructions}
+            ${mealDetails.strInstructions}
             </span>
         </div>
         <div class="item-video">
             <strong>Video Link:</strong>
-            <span class="item-text">
-            <a href="${mealDetails.meals[0].strYoutube}">Watch Here</a>
-          
+            <span class="item-text">        
             </span>
-            <div id="like-button" onclick="addRemoveToFavList(${mealDetails.meals[0].idMeal})"> 
-             ${isFav(list, mealDetails.meals[0].idMeal) ? 'Remove From Favourite' : 'Add To Favourite'} </div>
+            <div id="like-button" > 
+             ${isFav(list, mealDetails.idMeal) ? 'Remove From Favourite' : 'Add To Favourite'} </div>
         </div>
     </div>
 </div> 
@@ -122,44 +136,13 @@ async function mealDetailPage(mealDetails) {
         Related Items
     </div>
     <div id="cards-holder" class=" remove-top-margin ">`
-    }
-    if( mealList.meals!=null){
-        html += mealList.meals.map(element => {
-            return `       
-            <div class="card">
-                <div class="card-top"  onclick="showMealDetails(${element.idMeal}, '${searchInput}')">
-                    <div class="dish-photo" >
-                        <img src="${element.strMealThumb}" alt="">
-                    </div>
-                    <div class="dish-name">
-                        ${element.strMeal}
-                    </div>
-                    <div class="dish-details">
-                        ${truncate(element.strInstructions, 50)}
-                        <span class="button" onclick="showMealDetails(${element.idMeal}, '${searchInput}')">Know More</span>
-                    </div>
-                </div>
-                <div class="card-bottom">
-                    <div class="like">
-                       
-                        <i class="fa-solid fa-heart ${isFav(list, element.idMeal) ? 'active' : ''} " 
-                        onclick="addRemoveToFavList(${element.idMeal})"></i>
-                    </div>
-                    <div class="play">
-                        <a href="${element.strYoutube}">
-                            <i class="fa-brands fa-youtube"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        `
-        }).join('');
-    }
+    
 
-  
-    html = html + '</div>';
+    document.getElementById('meal-details-page').innerHTML = html;
 
-    document.getElementById('meal-details').innerHTML = html;
+    return "./meal-detail-page.html" ;
+
+    //onclick="addRemoveToFavList(${mealDetails.idMeal})"
 }
 
 
@@ -167,7 +150,9 @@ async function mealDetailPage(mealDetails) {
 searchInput.addEventListener("input", (e) => {
     const inputValue = searchInput.value;
     MealList(inputValue) ;
-   // console.log(MealList(inputValue)) ;
 })
 
+
+
+module.exports =  MealList ;
 
