@@ -1,6 +1,7 @@
 
 var searchInput = document.getElementById('search-input') ;
 
+
 /**
  * showMealList - function to show meal list based on search input
  * 
@@ -35,7 +36,8 @@ var  MealList = async function(searchKeyword) {
     if (response.meals) {
         html = response.meals.map(element => {
             return `
-            <div class="card" onClick="${mealDetailPage(element)}">
+            <a href="meal-detail-page.html" target="blank" onClick="${mealDetailPage(element.idMeal)}">
+            <div class="card" >
             <div class="card-top" >
                 <div class="dish-photo" >
                     <img src="${element.strMealThumb}" alt="">
@@ -62,6 +64,7 @@ var  MealList = async function(searchKeyword) {
                 </div>
             </div>
         </div>
+        </a>
             `
         }).join('');
         document.getElementById('result-section').innerHTML = html;
@@ -70,10 +73,14 @@ var  MealList = async function(searchKeyword) {
 
 
 
-async function mealDetailPage(mealDetails) {
+async function mealDetailPage(mealId) {
     const list = JSON.parse(localStorage.getItem(dbObjectFavList));
+    const idMealUrl = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=' 
+    const mealDetails = fetch(`${idMealUrl}${mealId}`).then(response => response.json()).then(data => {
+        const meals = data.meals; 
+        console.log(meals[0].idMeal); 
+      }).catch(error => console.error("Error: ", error));
     let html = ''
-        window.location.assign ="http://127.0.0.1:5500/meal-detail-page.html" ;
         html = `
         <div class="container remove-top-margin">
 
@@ -140,8 +147,6 @@ async function mealDetailPage(mealDetails) {
 
     document.getElementById('meal-details-page').innerHTML = html;
 
-    return "./meal-detail-page.html" ;
-
     //onclick="addRemoveToFavList(${mealDetails.idMeal})"
 }
 
@@ -152,7 +157,4 @@ searchInput.addEventListener("input", (e) => {
     MealList(inputValue) ;
 })
 
-
-
-module.exports =  MealList ;
 
