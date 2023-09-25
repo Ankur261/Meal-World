@@ -73,13 +73,14 @@ var  MealList = async function(searchKeyword) {
 
 
 
-async function mealDetailPage(mealId) {
+async function mealDetailPage(event) {
     const list = JSON.parse(localStorage.getItem(dbObjectFavList));
     const idMealUrl = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=' 
     const mealDetails = fetch(`${idMealUrl}${mealId}`).then(response => response.json()).then(data => {
         const meals = data.meals; 
-        console.log(meals[0].idMeal); 
+        //console.log(meals[0].idMeal); 
       }).catch(error => console.error("Error: ", error));
+      console.log(mealDetails) ;
     let html = ''
         html = `
         <div class="container remove-top-margin">
