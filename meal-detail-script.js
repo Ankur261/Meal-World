@@ -10,13 +10,11 @@ function isFav(list, id) {
 
 async function  mealDetailPage () {
     const urlParams = new URLSearchParams(window.location.search) ;
-    const mealId = urlParams.get('id')
-    console.log(mealId) ;
+    const mealId = urlParams.get('id');
     //const list = JSON.parse(localStorage.getItem(dbObjectFavList));
     const idMealUrl = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=' 
     const meal = await fetch(idMealUrl + mealId).then(response => response.json()).catch(error => console.error("Error: ", error));
     var mealDetails = meal.meals[0] ;  
-    var list = [] ;
      let html = ''
         html = `
         <div class="container remove-top-margin">
@@ -55,7 +53,7 @@ async function  mealDetailPage () {
             <span class="item-text">        
             </span>
             <div id="like-button" > 
-             ${isFav(list, mealDetails.idMeal) ? 'Remove From Favourite' : 'Add To Favourite'} </div>
+             ${isFav(mealDetails.idMeal) ? 'Remove From Favourite' : 'Add To Favourite'} </div>
         </div>
     </div>
 </div> 

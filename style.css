@@ -139,6 +139,7 @@ a {
 
 .like svg {
     fill: rgb(255, 255, 255);
+    background-color: black;
     scale: 1.2;
 }
 
@@ -149,6 +150,6 @@ a {
 
 .like svg:hover,
 .play svg:hover {
-    scale: 2.0;
+    scale: 1.8;
     transition: ease-in-out all .25s;
 }
