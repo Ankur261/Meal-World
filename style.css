@@ -12,7 +12,6 @@ header {
     flex-direction: row;
     justify-content: center;
     padding-left: 2vw;
-
 }
 
 #nav-bar {
@@ -137,7 +136,7 @@ a {
 }
 
 
-.like svg {
+#like svg {
     fill: rgb(255, 255, 255);
     background-color: black;
     scale: 1.2;
@@ -148,7 +147,7 @@ a {
 }
 
 
-.like svg:hover,
+#like svg:hover,
 .play svg:hover {
     scale: 1.8;
     transition: ease-in-out all .25s;
