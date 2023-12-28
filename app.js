@@ -1,8 +1,9 @@
 
+// DOM element - search box
 var searchInput = document.getElementById('search-input');
+
+//DOM element - bars 
 const toggleButton = document.getElementById("toggle-sidebar");
-
-
 
 
 
@@ -51,8 +52,6 @@ if (toggleButton) {
  * This function first retrieves the data from local storage and then it checks if the provided meal id already exist in the favorite list.
  * If it exists, it removes it from the list, otherwise it adds it to the list. It then updates the local storage and updates the UI.
  */
-
-
  export function addRemoveToFavList(id, likeButton) {
     const list = JSON.parse(localStorage.getItem(dbObjectFavList));
     let db = JSON.parse(localStorage.getItem(dbObjectFavList));
