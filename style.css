@@ -43,14 +43,12 @@ header {
     display: flex;
     flex: .2;
     height: 100%;
-    width: 20%;
     background-color: rgb(0, 0, 0);
     color: black;
     flex-direction: column;
     align-items: center;
     display: none;
-    min-width: 300px;
-    max-width: 500px;
+    min-width: 270px;
     align-self:flex-end;
 }
 
@@ -74,7 +72,7 @@ header {
 #sidebar.show {
     display: flex;
     transition: all ease-in-out .25s;
-
+    width: 15%;
 }
 
 #flex-box.shrink {
@@ -104,8 +102,8 @@ header {
 }
 
 .fav-item {
-    width: 80%;
-    min-height: 250px;
+    width: 90%;
+    min-height: 260px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -118,9 +116,6 @@ header {
 
 }
 
-.fav-item:hover{
-    cursor: pointer;
-}
 
 .fav-item-photo {
     width: 100%;
@@ -140,7 +135,7 @@ header {
     flex-direction: row;
     justify-content: space-between;
     width: 90%;
-    height: 40px;
+    height: 50px;
     align-items: center;
 }
 
@@ -148,7 +143,7 @@ header {
     border: 1px solid hsl(233, 14%, 35%);
     border-radius: 10%;
     padding: 2px;
-    height: 30px;
+    height: 20px;
     box-shadow: 1px 1px 10px -2px rgb(146, 99, 99);
 
 }
