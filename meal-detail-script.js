@@ -50,16 +50,16 @@ async function  mealDetailPage () {
         </div>
         <div class="item-video">
             <strong>Video Link:</strong>
-            <span class="item-text">        
+            <span class="item-text"> 
+            <a href='${mealDetails.strYoutube}' target="blank"> Click Here<a/>      
             </span>
-            <div id="like-button" > 
+            <p>
+            <button id="like-button" > 
+            <p/>
              ${isFav(mealDetails.idMeal) ? 'Remove From Favourite' : 'Add To Favourite'} </div>
-        </div>
+        </button>
     </div>
 </div> 
-        <div class="card-name">
-        Related Items
-    </div>
     <div id="cards-holder" class=" remove-top-margin ">`
     
 

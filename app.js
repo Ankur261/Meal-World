@@ -1,48 +1,165 @@
 
 var searchInput = document.getElementById('search-input');
+const toggleButton = document.getElementById("toggle-sidebar");
 
 
-if (!(localStorage.getItem('favMealList'))) {
-    let favMealArray = [];
-    localStorage.setItem('favMealList', JSON.stringify(favMealArray));
+/**
+ * Check and initialize the local storage items for favorite list and last input
+ */
+const dbObjectFavList = "favouritesList";
+ if (localStorage.getItem(dbObjectFavList) == null) {
+    localStorage.setItem(dbObjectFavList, JSON.stringify([]));
 }
 
-var favMealList = JSON.parse(localStorage.getItem('favMealList'));
 
-
-// function addRemoveFromFavList() {
-//     console.log('hello')
-// }
-
-// Define the function
-// Define the function
-// Define the function
-function addRemoveFromFav() {
-    console.log('hello');
-}
-
-// Add an event listener to a parent element
-const parentElement = document.getElementById('result-section');
-
-if (parentElement) {
-    parentElement.addEventListener('click', function(event) {
-        if (event.target && (event.target.id === 'like')) {
-            addRemoveFromFav();
+/**
+ * Check if an ID is in a list of favorites
+ *
+ * @param list The list of favorites
+ * @param id The ID to check
+ * @return true if the ID is in the list, false otherwise
+ */
+function isFav(list, id) {
+    let res = false;
+    for (let i = 0; i < list.length; i++) {
+        if (id == list[i]) {
+            res = true;
         }
-    });
+    }
+    return res;
 }
+
+
+toggleButton.addEventListener("click", function () {
+    showFavMealList();
+    sidebar.classList.toggle("show");
+    flexBox.classList.toggle('shrink');
+});
+
+
+/**
+ * addRemoveToFavList - function to add or remove a meal from the favorite list
+ * 
+ * @param {string} id - The id of the meal to be added or removed
+ *
+ * This function first retrieves the data from local storage and then it checks if the provided meal id already exist in the favorite list.
+ * If it exists, it removes it from the list, otherwise it adds it to the list. It then updates the local storage and updates the UI.
+ */
+
+function addRemoveToFavList(id) {
+    const detailsPageLikeBtn = document.getElementById('like-button');
+    let db = JSON.parse(localStorage.getItem(dbObjectFavList));
+    let ifExist = false;
+    for (let i = 0; i < db.length; i++) {
+        if (id == db[i]) {
+            ifExist = true;
+
+        }
+
+    } if (ifExist) {
+        db.splice(db.indexOf(id), 1);
+
+    } else {
+        db.push(id);
+
+    }
+
+    localStorage.setItem(dbObjectFavList, JSON.stringify(db));
+    if (detailsPageLikeBtn != null) {
+        detailsPageLikeBtn.innerHTML = isFav(db, id) ? 'Remove From Favourite' : 'Add To Favourite';
+    }
+
+    showMealList();
+    showFavMealList();
+    updateTask();
+}
+
+
+
+function noMealToShow() {
+    if(searchInput.value.trim() === '') {
+        var resultSection = document.getElementById('result-section') ;
+        resultSection.innerHTML = '<div id="no-meal-to-show"> No Meal to Show Here! </div>'
+    }
+    else {
+        MealList(searchInput.value)
+        console.log(searchInput.value) ;
+    }
+}
+
+
+
+/**
+
+This function is used to show all the meals which are added to the favourite list.
+
+@function
+
+@async
+
+@returns {string} html - This returns html which is used to show the favourite meals.
+
+@throws {Error} If there is no favourite meal then it will show "Nothing To Show....."
+
+@example
+
+showFavMealList()
+*/
+async function showFavMealList() {
+    let favList = JSON.parse(localStorage.getItem(dbObjectFavList));
+    let url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
+    let html = "";
+
+    if (favList.length == 0) {
+        html = `<div class="fav-item nothing"> <h1> 
+        Nothing To Show.....</h1> </div>`
+    } else {
+        for (let i = 0; i < favList.length; i++) {
+            const favMealList = await fetchMealsFromApi(url, favList[i]);
+            if (favMealList.meals[0]) {
+                let element = favMealList.meals[0];
+                html += `
+                <div class="fav-item" onclick="showMealDetails(${element.idMeal},'${generateOneCharString()}')">
+
+              
+                <div class="fav-item-photo">
+                    <img src="${element.strMealThumb}" alt="">
+                </div>
+                <div class="fav-item-details">
+                    <div class="fav-item-name">
+                        <strong>Name: </strong>
+                        <span class="fav-item-text">
+                           ${element.strMeal}
+                        </span>
+                    </div>
+                    <div id="fav-like-button" onclick="addRemoveToFavList(${element.idMeal})">
+                        Remove
+                    </div>
+
+                </div>
+
+            </div>               
+                `
+            }
+        }
+    }
+    document.getElementById('fav').innerHTML = html;
+}
+
+
+
 
 
 var MealList = async function (searchKeyword) {
     const searchMelaUrl = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
     const response = await fetch(searchMelaUrl + searchKeyword).then(response => response.json()).catch(error => console.error("Error: ", error));
     let html = '';
-    // ${isFav(list, element.idMeal) ? 'active' : ''}
     if (response.meals) {
         html = response.meals.map(element => {
             return `
-            <a href="./meal-detail-page.html?id=${element.idMeal}" target="blank">
+            
             <div class="card" >
+            <a href="./meal-detail-page.html?id=${element.idMeal}" target="blank">
             <div class="card-top" >
                 <div class="dish-photo" >
                     <img src="${element.strMealThumb}" alt="">
@@ -61,7 +178,7 @@ var MealList = async function (searchKeyword) {
             </a>
             <div class="card-bottom">
                 <div id="like" >
-                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.6 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path fill="#e71313" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
                 </div>
                 <div class="play">
                 <a href="${element.strYoutube}" target="blank">
@@ -73,28 +190,19 @@ var MealList = async function (searchKeyword) {
         
             `
         }).join('');
+
         document.getElementById('result-section').innerHTML = html;
     }
 }
 
 
-
-
-function isFav() {
-    
-    if(document.getElementById('like')) {
-        console.log('hell')
-        document.getElementById('like').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ff0000}</style><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"/></svg>'
-    }
-
-}
-
-
-
-
 searchInput.addEventListener("input", (e) => {
-
-    MealList(searchInput.value);
+   noMealToShow() ;
 })
+
+window.addEventListener("load", (e) => {
+    noMealToShow() ;
+})
+
 
 

@@ -10,18 +10,156 @@ header {
     background-color: rgb(0, 0, 0);
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     padding-left: 2vw;
 }
 
-#nav-bar {
-    padding: 20px;
-    text-align: center;
+
+
+#toggle-sidebar {
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+    align-content: center;
+    margin-right: 20px;
+    margin-top: 25px;
 }
 
-#nav-bar svg {
-    scale: 2.0;
+#toggle-sidebar:hover {
+    scale: 1.2;
+    transition: all ease-in-out .25s;
 }
+
+
+#sidebar {
+    display: flex;
+    flex: .2;
+
+    height: 100vh;
+    background-color: hsl(235, 24%, 19%);
+
+    color: white;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+    min-width: 300px;
+    max-width: 500px;
+
+
+
+}
+
+#sidebar.show {
+    display: flex;
+    transition: all ease-in-out .25s;
+
+}
+
+#flex-box.shrink {
+    flex: .8;
+    transition: all ease-in-out .25s;
+}
+
+.top_gap {
+    height: 60px;
+    width: 100%;
+
+}
+
+#sidebar .small {
+    font-size: 1rem;
+    color: rgb(158, 153, 153);
+}
+
+#sidebar hr {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 100%;
+    border: 1px solid hsl(233, 14%, 35%);
+
+}
+
+
+
+
+/*********************************** test*****************/
+
+
+#fav {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+}
+
+.fav-item {
+    width: 80%;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+    background-color: hsl(234, 39%, 85%);
+    color: hsl(235, 24%, 19%);
+    font-size: 1.2rem;
+    border-radius: 10px;
+
+}
+
+.fav-item:hover{
+    cursor: pointer;
+}
+
+.fav-item-photo {
+    width: 100%;
+}
+
+.fav-item-photo img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10%;
+
+}
+
+.fav-item-details {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+    height: 40px;
+    align-items: center;
+}
+
+#fav-like-button {
+    border: 1px solid hsl(233, 14%, 35%);
+    border-radius: 10%;
+    padding: 2px;
+    height: 30px;
+    box-shadow: 1px 1px 10px -2px rgb(146, 99, 99);
+
+}
+
+#fav-like-button:hover {
+    cursor: pointer;
+    border-color: brown;
+}
+
+.fav-item.nothing {
+    background-color: transparent;
+    color: rgb(129, 128, 126);
+    font-size: .8rem;
+    text-decoration: none;
+}
+
+
+
 
 #search-section {
     margin-top: 20px;
@@ -151,4 +289,11 @@ a {
 .play svg:hover {
     scale: 1.8;
     transition: ease-in-out all .25s;
+}
+
+#no-meal-to-show {
+    text-align: center;
+    font-weight: 700;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
 }
