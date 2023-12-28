@@ -94,19 +94,6 @@ function noMealToShow() {
 }
 
 
-/**
- * 
- * This function adds an event listener to the toggle button that when clicked, it calls the showFavMealList function and adds or removes the "show" class to the sidebar element and "shrink" class to the flexBox element, respectively.
- * @event toggleButton - The button element that when clicked, triggers the event listener.
- * @function showFavMealList - The function that is called when the toggle button is clicked. It populates the fav element with the list of favorite meals.
- * @element sidebar - The sidebar element that has the "show" class added or removed.
- * @element flexBox - The flexbox element that has the "shrink" class added or removed.
-*/
-
-
-
-
-
 
 const fetchMealsFromApi = async (url, value) => {
     const response = await fetch(`${url + value}`);
