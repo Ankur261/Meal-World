@@ -6,6 +6,7 @@
 }
 a{
     text-decoration: none;
+    color: orange;
 }
 a:hover{
     text-decoration: none;
@@ -26,10 +27,10 @@ a:visited{
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    background-color: hsl(235, 24%, 19%);
+    background-color: hsl(0, 0%, 0%);
     color: white;
     border: 1x solid red;
-
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 
