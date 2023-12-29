@@ -169,7 +169,7 @@ export async function showFavMealList() {
                 favItemName.appendChild(span);
     
                 // Create fav-like-button div with onclick event
-                const favLikeButton = document.createElement('div');
+                const favLikeButton = document.createElement('button');
                 favLikeButton.id = 'fav-like-button';
                 favLikeButton.textContent = 'Remove';
                 favLikeButton.addEventListener('click', () => addRemoveToFavList(element.idMeal, favLikeButton));

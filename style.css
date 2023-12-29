@@ -50,8 +50,6 @@ header {
     min-width: 280px;
 }
 
-
-
 #toggle-sidebar {
     height: 25px;
     width: 25px;
@@ -84,9 +82,6 @@ header {
 }
 
 
-
-
-
 #fav {
     display: flex;
     flex-direction: column;
@@ -107,8 +102,7 @@ header {
     background-color:rgb(245, 230, 221);
     color: hsl(235, 24%, 19%);
     font-size: 1.2rem;
-    border-radius: 10px;
-
+    text-overflow: ellipsis;
 }
 
 
@@ -134,12 +128,11 @@ header {
 }
 
 #fav-like-button {
-    border: 1px solid hsl(233, 14%, 35%);
+   margin-left: 3px;
     border-radius: 10%;
     padding: 2px;
-    height: 17px;
-    box-shadow: 1px 1px 10px -2px rgb(146, 99, 99);
-    font-size: medium;
+    height: 25px;
+    font-size: small;
 }
 
 .fav-item-text {
@@ -148,7 +141,7 @@ header {
 
 #fav-like-button:hover {
     cursor: pointer;
-    border-color: brown;
+    background-color: red;
 }
 
 .fav-item.nothing {
@@ -286,4 +279,17 @@ a {
     flex-direction: column;
     overflow-y: scroll;
     scroll-behavior: smooth;
+}
+
+#like-button {
+    margin-left: 3px;
+    border-radius: 10%;
+    padding: 2px;
+    height: 25px;
+    font-size: small;
+}
+
+#like-button:hover {
+    scale: 1.1;
+    cursor: pointer;
 }
