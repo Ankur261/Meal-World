@@ -38,7 +38,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Demo
 
-Check out the live demo of the application at https://ankur261.github.io/Meal%20World/
+Check out the live demo of the application at https://ankur261.github.io/Meal-World
 
 ## Authors
 
